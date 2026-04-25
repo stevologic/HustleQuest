@@ -40,7 +40,7 @@ const skylineLayers = [
 export default function HomePage() {
   return (
     <section className="space-y-8">
-      <div className="relative overflow-hidden rounded-xl border border-indigo-600/40 bg-gradient-to-b from-indigo-900/80 via-slate-900 to-slate-950 p-6 pb-40">
+      <div data-anim="hero" className="relative overflow-hidden rounded-xl border border-indigo-600/40 bg-gradient-to-b from-indigo-900/80 via-slate-900 to-slate-950 p-6 pb-40">
         <div className="pointer-events-none absolute inset-0 opacity-60">
           <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-indigo-300/20 via-purple-400/10 to-transparent" />
           <div className="absolute left-4 top-6 h-3 w-3 bg-indigo-200/70 shadow-[12px_0_0_rgba(199,210,254,0.65),28px_8px_0_rgba(199,210,254,0.6),44px_4px_0_rgba(199,210,254,0.55),68px_12px_0_rgba(199,210,254,0.45),84px_6px_0_rgba(199,210,254,0.55),120px_14px_0_rgba(199,210,254,0.4),146px_10px_0_rgba(199,210,254,0.55),172px_6px_0_rgba(199,210,254,0.45),210px_12px_0_rgba(199,210,254,0.6),236px_4px_0_rgba(199,210,254,0.45),266px_10px_0_rgba(199,210,254,0.4),298px_6px_0_rgba(199,210,254,0.5)]" />
@@ -52,7 +52,7 @@ export default function HomePage() {
           <p className="mt-2 text-slate-200">{appConfig.tagline}</p>
           <p className="mt-3 rounded border border-indigo-700 bg-indigo-950/50 p-3 text-sm">{appConfig.marketplaceBoundary}</p>
           <div className="mt-4 flex flex-wrap gap-3 text-sm">
-            <Link className="rounded bg-indigo-500 px-3 py-2 font-medium text-white no-underline" href="/post">
+            <Link data-anim="pulse" className="rounded bg-indigo-500 px-3 py-2 font-medium text-white no-underline" href="/post">
               Launch service
             </Link>
             <Link className="rounded border border-slate-600 px-3 py-2 no-underline" href="/browse">
@@ -94,7 +94,7 @@ export default function HomePage() {
         </p>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {starterClasses.map((item) => (
-            <div key={item} className="rounded border border-slate-700 bg-slate-900 px-3 py-2 text-sm">
+            <div key={item} data-anim="card" className="rounded border border-slate-700 bg-slate-900 px-3 py-2 text-sm">
               {item}
             </div>
           ))}

@@ -25,7 +25,9 @@
     "react-dom": "18.3.1",
     "react-hook-form": "^7.53.0",
     "stripe": "^16.9.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "gsap": "^3.13.0",
+    "pixi.js": "^8.10.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.50.1",
