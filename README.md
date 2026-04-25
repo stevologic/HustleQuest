@@ -82,6 +82,18 @@ docker compose up --build
 This repository now contains a production-oriented scaffold. The next implementation phase should wire the placeholder routes to live persistence, auth providers, Stripe products/webhooks, moderation providers, full RBAC, and complete UI workflows.
 
 
+
+## GPT Image visual pipeline
+
+Generate polished hero/background/icon/sprite assets using the OpenAI Images API:
+
+```bash
+export OPENAI_API_KEY=your_key
+npm run assets:generate:gpt-image
+```
+
+Generated files are placed in `public/world-class/` and are served directly by Next.js.
+
 ## Troubleshooting
 
 - If Docker/Next fails with `Cannot find module 'autoprefixer'`, ensure dependencies are reinstalled after pulling latest changes:
