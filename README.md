@@ -80,3 +80,15 @@ docker compose up --build
 ## Next steps to reach full production
 
 This repository now contains a production-oriented scaffold. The next implementation phase should wire the placeholder routes to live persistence, auth providers, Stripe products/webhooks, moderation providers, full RBAC, and complete UI workflows.
+
+
+## Troubleshooting
+
+- If Docker/Next fails with `Cannot find module 'autoprefixer'`, ensure dependencies are reinstalled after pulling latest changes:
+
+```bash
+docker compose build --no-cache
+docker compose up
+```
+
+(or run `npm install` locally before `npm run dev`).
