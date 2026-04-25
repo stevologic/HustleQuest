@@ -1,0 +1,47 @@
+<svg width="768" height="256" viewBox="0 0 768 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="chip" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E293B"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="768" height="256" fill="#020617"/>
+
+  <g transform="translate(38 38)">
+    <rect width="128" height="80" rx="10" fill="url(#chip)" stroke="#6366F1"/>
+    <path d="M24 52L38 28L54 42L72 24L104 52" stroke="#A5B4FC" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="96" cy="26" r="9" fill="#FCD34D"/>
+  </g>
+
+  <g transform="translate(210 38)">
+    <rect width="128" height="80" rx="10" fill="url(#chip)" stroke="#6366F1"/>
+    <rect x="24" y="22" width="34" height="34" rx="6" fill="#38BDF8"/>
+    <rect x="68" y="22" width="34" height="34" rx="6" fill="#A78BFA"/>
+    <path d="M24 62H102" stroke="#F8FAFC" stroke-opacity="0.6" stroke-width="4"/>
+  </g>
+
+  <g transform="translate(382 38)">
+    <rect width="128" height="80" rx="10" fill="url(#chip)" stroke="#6366F1"/>
+    <path d="M64 20C82 20 96 34 96 52C96 59 94 64 90 69L94 78L84 74C78 78 71 80 64 80C46 80 32 66 32 48C32 32 46 20 64 20Z" fill="#22D3EE"/>
+    <circle cx="53" cy="49" r="4" fill="#0F172A"/><circle cx="66" cy="49" r="4" fill="#0F172A"/><circle cx="79" cy="49" r="4" fill="#0F172A"/>
+  </g>
+
+  <g transform="translate(554 38)">
+    <rect width="128" height="80" rx="10" fill="url(#chip)" stroke="#6366F1"/>
+    <path d="M36 56L52 36L66 48L90 28" stroke="#34D399" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="36" cy="56" r="6" fill="#34D399"/>
+    <circle cx="52" cy="36" r="6" fill="#34D399"/>
+    <circle cx="66" cy="48" r="6" fill="#34D399"/>
+    <circle cx="90" cy="28" r="6" fill="#34D399"/>
+  </g>
+
+  <g transform="translate(38 142)">
+    <rect width="300" height="76" rx="12" fill="#111827" stroke="#4F46E5"/>
+    <text x="22" y="47" fill="#E2E8F0" font-size="24" font-family="monospace">Quest Complete +250 XP</text>
+  </g>
+
+  <g transform="translate(382 142)">
+    <rect width="300" height="76" rx="12" fill="#111827" stroke="#4F46E5"/>
+    <text x="22" y="47" fill="#E2E8F0" font-size="24" font-family="monospace">Verified Seller Shield</text>
+  </g>
+</svg>

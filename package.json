@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:seed": "tsx prisma/seed.ts"
+    "prisma:seed": "tsx prisma/seed.ts",
+    "assets:generate:gpt-image": "node scripts/generate-gpt-image-assets.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
