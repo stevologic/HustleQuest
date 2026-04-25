@@ -40,6 +40,8 @@ const skylineLayers = [
 export default function HomePage() {
   return (
     <section className="space-y-8">
+      <div className="relative overflow-hidden rounded-xl border border-indigo-600/40 bg-gradient-to-b from-indigo-900/80 via-slate-900 to-slate-950 p-6 pb-40">
+        <div className="pointer-events-none absolute inset-0 bg-[url('/retro-cityscape.svg')] bg-cover bg-center opacity-35" />
       <div data-anim="hero" className="relative overflow-hidden rounded-xl border border-indigo-600/40 bg-gradient-to-b from-indigo-900/80 via-slate-900 to-slate-950 p-6 pb-40">
         <div className="pointer-events-none absolute inset-0 opacity-60">
           <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-indigo-300/20 via-purple-400/10 to-transparent" />
