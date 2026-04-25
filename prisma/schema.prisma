@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  guest
+  user
+  business
+  moderator
+  admin
+  owner
+}
+
+enum ListingStatus {
+  draft
+  pending_payment
+  pending_moderation
+  active
+  needs_changes
+  rejected
+  expired
+  suspended
+  deleted
+}
+
+enum PaymentStatus {
+  pending
+  requires_action
+  succeeded
+  failed
+  canceled
+  refunded
+  partially_refunded
+}
+
+model User {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  role          Role        @default(user)
+  createdAt     DateTime    @default(now())
+  profile       Profile?
+  business      BusinessProfile?
+  listings      Listing[]
+  consents      ConsentLog[]
+  audits        AuditLog[]
+  badges        UserBadge[]
+  xpEvents      XPEvent[]
+  levelProgress LevelProgress?
+}
+
+model Account { id String @id @default(cuid()) userId String provider String providerAccountId String user User @relation(fields:[userId], references:[id]) }
+model Session { id String @id @default(cuid()) sessionToken String @unique userId String expires DateTime user User @relation(fields:[userId], references:[id]) }
+model VerificationToken { identifier String token String @unique expires DateTime @@unique([identifier, token]) }
+model GuestIdentity { id String @id @default(cuid()) email String createdAt DateTime @default(now()) }
+model MagicLink { id String @id @default(cuid()) token String @unique email String expiresAt DateTime usedAt DateTime? }
+
+model Profile { id String @id @default(cuid()) userId String @unique handle String? @unique city String? state String? user User @relation(fields:[userId], references:[id]) }
+model BusinessProfile { id String @id @default(cuid()) userId String @unique name String website String? city String state String user User @relation(fields:[userId], references:[id]) }
+
+model Listing {
+  id          String       @id @default(cuid())
+  ownerId     String?
+  owner       User?        @relation(fields:[ownerId], references:[id])
+  title       String
+  slug        String       @unique
+  description String
+  status      ListingStatus @default(draft)
+  city        String
+  state       String
+  zip         String
+  posterType  String
+  createdAt   DateTime     @default(now())
+  revisions   ListingRevision[]
+  photos      ListingPhoto[]
+  documents   ListingDocument[]
+  purchases   ListingPurchase[]
+  reviews     Review[]
+  contactViews ContactView[]
+}
+
+model ListingRevision { id String @id @default(cuid()) listingId String snapshot Json listing Listing @relation(fields:[listingId], references:[id]) createdAt DateTime @default(now()) }
+model ListingPhoto { id String @id @default(cuid()) listingId String url String listing Listing @relation(fields:[listingId], references:[id]) }
+model ListingDocument { id String @id @default(cuid()) listingId String url String private Boolean @default(true) listing Listing @relation(fields:[listingId], references:[id]) }
+model Category { id String @id @default(cuid()) slug String @unique name String subcategories Subcategory[] }
+model Subcategory { id String @id @default(cuid()) categoryId String slug String name String category Category @relation(fields:[categoryId], references:[id]) }
+model Location { id String @id @default(cuid()) city String state String zip String }
+model PricePlan { id String @id @default(cuid()) code String @unique label String priceCents Int durationDays Int posterType String }
+
+model ListingPurchase { id String @id @default(cuid()) listingId String pricePlanId String paymentId String? listing Listing @relation(fields:[listingId], references:[id]) pricePlan PricePlan @relation(fields:[pricePlanId], references:[id]) payment Payment? @relation(fields:[paymentId], references:[id]) }
+model Payment { id String @id @default(cuid()) status PaymentStatus @default(pending) amountCents Int provider String providerRef String? purchases ListingPurchase[] checkoutSession CheckoutSession? }
+model CheckoutSession { id String @id @default(cuid()) paymentId String @unique sessionId String @unique payment Payment @relation(fields:[paymentId], references:[id]) }
+model CryptoPayment { id String @id @default(cuid()) paymentId String provider String status String }
+model PaymentWebhookEvent { id String @id @default(cuid()) provider String eventId String @unique payload Json processedAt DateTime? }
+
+model ModerationReview { id String @id @default(cuid()) listingId String decision String reasonCode String createdAt DateTime @default(now()) }
+model ModerationSignal { id String @id @default(cuid()) listingId String source String score Float category String }
+model ModerationAction { id String @id @default(cuid()) listingId String actorId String? action String notes String? createdAt DateTime @default(now()) }
+model Report { id String @id @default(cuid()) reporterEmail String? entityType String entityId String reason String status String @default("open") createdAt DateTime @default(now()) }
+model Review { id String @id @default(cuid()) listingId String rating Int text String verificationType String listing Listing @relation(fields:[listingId], references:[id]) }
+model ReviewInvite { id String @id @default(cuid()) listingId String token String @unique email String expiresAt DateTime }
+model ContactView { id String @id @default(cuid()) listingId String email String? createdAt DateTime @default(now()) listing Listing @relation(fields:[listingId], references:[id]) }
+model Badge { id String @id @default(cuid()) code String @unique name String }
+model UserBadge { id String @id @default(cuid()) userId String badgeId String awardedAt DateTime @default(now()) user User @relation(fields:[userId], references:[id]) badge Badge @relation(fields:[badgeId], references:[id]) }
+model XPEvent { id String @id @default(cuid()) userId String amount Int reason String createdAt DateTime @default(now()) user User @relation(fields:[userId], references:[id]) }
+model LevelProgress { id String @id @default(cuid()) userId String @unique level Int @default(1) xp Int @default(0) user User @relation(fields:[userId], references:[id]) }
+model LeaderboardSnapshot { id String @id @default(cuid()) periodStart DateTime periodEnd DateTime data Json }
+model MiniGameScore { id String @id @default(cuid()) userId String gameCode String score Int createdAt DateTime @default(now()) }
+model AuditLog { id String @id @default(cuid()) userId String? action String entityType String entityId String? meta Json? createdAt DateTime @default(now()) user User? @relation(fields:[userId], references:[id]) }
+model ConsentLog { id String @id @default(cuid()) userId String? type String accepted Boolean acceptedAt DateTime @default(now()) ipHash String? user User? @relation(fields:[userId], references:[id]) }
+model PrivacyRequest { id String @id @default(cuid()) userId String? email String type String status String @default("queued") createdAt DateTime @default(now()) }
+model EmailLog { id String @id @default(cuid()) to String template String status String providerRef String? createdAt DateTime @default(now()) }
+model AppSetting { id String @id @default(cuid()) key String @unique value Json }
+model FeatureFlag { id String @id @default(cuid()) key String @unique enabled Boolean @default(false) description String? }
